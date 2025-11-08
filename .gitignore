@@ -1,0 +1,49 @@
+# .gitignore
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Sensitive files
+terraform.tfvars
+!terraform.tfvars.example
+.ssh_connection
+
+# IDE and OS files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Local environment files
+.env
+.env.local
+*.pem
+*.pub
+!.gitkeep
+
+# Logs
+*.log
+/logs/
+
+# Azure CLI files
+.azure/
+
+# Helm files
+*.tgz
+Chart.lock
+
+# Kubernetes config
+.kube/

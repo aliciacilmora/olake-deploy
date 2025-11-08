@@ -1,0 +1,97 @@
+# OLake Helm Chart Values
+# This values file configures the OLake application for your Minikube deployment
+
+# Replica count for OLake pods
+replicaCount: 1
+
+image:
+  repository: datazip/olake
+  pullPolicy: IfNotPresent
+  tag: "latest"  
+
+# Service configuration
+service:
+  type: NodePort 
+  port: 8000
+  targetPort: 8000
+  nodePort: 30000 
+
+# Ingress configuration 
+ingress:
+  enabled: false  
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: "olake.local"
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+# Resource requests and limits
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
+# Environment variables for OLake
+env:
+  - name: LOG_LEVEL
+    value: "INFO"
+  - name: ENVIRONMENT
+    value: "development"
+
+# Persistence
+persistence:
+  enabled: false  
+  storageClass: "standard"
+  size: 10Gi
+
+# Autoscaling (disabled for dev/test)
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+# Pod Disruption Budget 
+podDisruptionBudget:
+  enabled: false
+
+# Security Context
+securityContext:
+  runAsNonRoot: false
+  fsGroup: 1000
+
+# Node selector 
+nodeSelector: {}
+
+# Tolerations 
+tolerations: []
+
+# Affinity 
+affinity: {}
+
+# Health checks
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+# Additional configuration
+config:
+  debug: false
+  maxConnections: 100

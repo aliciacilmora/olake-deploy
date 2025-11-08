@@ -1,0 +1,30 @@
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars and customize values for your environment
+# Never commit terraform.tfvars with real secrets/values to git
+
+# Azure Configuration
+azure_region        = "eastus"
+resource_group_name = "olake-rg"
+vm_name             = "olake-vm"
+vm_size             = "Standard_D4s_v3" # 4 vCPUs, 16GB RAM
+os_disk_size_gb     = 50
+
+# SSH Configuration
+admin_username      = "azureuser"
+ssh_public_key_path = "~/.ssh/terraform_rsa.pub" # SSH key path
+local_machine_ip    = "0.0.0.0/0"         # CHANGE TO YOUR IP "203.0.113.0/32" for security
+
+# Tags and Environment
+environment  = "development"
+project_name = "OLake-DevOps-Assignment"
+
+# Minikube Configuration
+minikube_cpus   = 3
+minikube_memory = 6144 # in MB
+
+# OLake Helm Configuration
+olake_namespace          = "olake"
+olake_helm_repo          = "https://datazip-inc.github.io/olake-helm"
+olake_helm_chart_name    = "olake"
+olake_helm_chart_version = "" #latest
+olake_release_name       = "olake-release"
